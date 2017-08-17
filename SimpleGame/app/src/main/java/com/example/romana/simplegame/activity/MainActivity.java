@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.romana.simplegame.R;
+import com.example.romana.simplegame.tilepuzzle.TilePuzzleActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.tic_tac_toe)
     public void playTicTacToe(){
         Intent i = new Intent(MainActivity.this, TicTacToeActivity.class);
+        startActivity(i);
+    }
+
+    @OnClick(R.id.tile_puzzle)
+    public void playTilePuzzle(){
+        Intent i = new Intent(MainActivity.this, TilePuzzleActivity.class);
         startActivity(i);
     }
 

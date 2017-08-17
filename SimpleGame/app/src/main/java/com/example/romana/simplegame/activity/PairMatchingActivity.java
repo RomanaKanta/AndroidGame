@@ -10,6 +10,7 @@ import com.example.romana.simplegame.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class PairMatchingActivity extends AppCompatActivity {
 
@@ -18,6 +19,15 @@ public class PairMatchingActivity extends AppCompatActivity {
 
     @Bind(R.id.screen_title)
     TextView title;
+
+    @OnClick(R.id.pairexit)
+    public void exit(){
+        finish();
+    }
+
+    @OnClick(R.id.pairreset)
+    public void reset(){
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -19,7 +19,7 @@
         android:padding="@dimen/margin_10"
         >
         <Button
-            android:id="@+id/pairreset"
+            android:id="@+id/tilereset"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             android:textSize="@dimen/txt_size_20"
             />
         <Button
-            android:id="@+id/pairexit"
+            android:id="@+id/tileexit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
