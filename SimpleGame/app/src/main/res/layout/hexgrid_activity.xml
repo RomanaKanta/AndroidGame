@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.romana.simplegame.activity.PairMatchingActivity">
+
+<include layout="@layout/toolbar"
+    android:id="@+id/header"
+    />
+
+<LinearLayout
+    android:id="@+id/footer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_10"
+    >
+    <Button
+        android:id="@+id/pairreset"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="Reset"
+        android:textSize="@dimen/txt_size_20"
+        />
+    <Button
+        android:id="@+id/pairexit"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="EXIT"
+        android:textSize="@dimen/txt_size_20"
+        />
+</LinearLayout>
+
+<RelativeLayout
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/header"
+    android:layout_above="@id/footer"
+    >
+
+
+<com.example.romana.simplegame.HexGrid.JHexedPhotoView
+    android:id="@+id/hexview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="#ffffc325"
+    />
+    </RelativeLayout>
+</RelativeLayout>

@@ -139,7 +139,6 @@ public class TilePuzzleActivity extends AppCompatActivity
 			newWidth = size;
 			newHeight = (int) (size * ratio); 
 
-		
 		if(scramble || newWidth != puzzleWidth || newHeight != puzzleHeight)
 		{
 			puzzleWidth = newWidth;
@@ -147,7 +146,6 @@ public class TilePuzzleActivity extends AppCompatActivity
 			scramble();
 		}
 	}
-
 	
 public void onFinish(){
 
@@ -163,16 +161,10 @@ public void onFinish(){
 			.setCancelable(false)
 			.setPositiveButton("Okey",new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
-					dialog.cancel();
-				}
-			})
-			.setNegativeButton("New Game",new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
 					reset();
 					dialog.cancel();
 				}
 			});
-
 
 	// create alert dialog
 	AlertDialog alertDialog = alertDialogBuilder.create();

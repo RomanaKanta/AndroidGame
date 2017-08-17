@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.example.romana.simplegame.HexGrid.HexGridActivity;
 import com.example.romana.simplegame.R;
 import com.example.romana.simplegame.tilepuzzle.TilePuzzleActivity;
 
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.pair_matching)
     public void playPairMatching(){
         Intent i = new Intent(MainActivity.this, PairMatchingActivity.class);
+        startActivity(i);
+    }
+
+    @OnClick(R.id.hexgrid)
+    public void hexGrid(){
+        Intent i = new Intent(MainActivity.this, HexGridActivity.class);
         startActivity(i);
     }
 

@@ -20,9 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
+
         <activity android:name=".activity.TicTacToeActivity" />
         <activity android:name=".activity.PairMatchingActivity"></activity>
-
+        <activity android:name=".HexGrid.HexGridActivity" />
         <activity android:name=".tilepuzzle.TilePuzzleActivity"></activity>
     </application>
 
