@@ -754,6 +754,7 @@ public final class HexEngine<G> {
    */
   @SuppressWarnings("unchecked")
   private void _drawHex(final G gfx, final int column, final int row) {
+
     final float calcx = calculateX(column, row);
     final float calcy = calculateY(column, row);
     this.renderer.renderHexCell(this, gfx, calcx, calcy, column, row);
@@ -813,13 +814,11 @@ public final class HexEngine<G> {
    * @param accurately true if to check coverage accurately, false if check
    * should be fast but rough.
 */
-  public void drawArea(final G gfx, final HexRect2D rect, final boolean accurately) {
+  public void drawArea(final G gfx, final HexRect2D rect, final boolean accurately, int fieldHeight,int fieldWidth) {
     synchronized (this.rendererLock) {
       synchronized (this.modelLock) {
         final float rightx = rect.getRight();
         final float righty = rect.getBottom();
-
-
 
         int tlColumn = calculateColumn(rect.getLeft(), rect.getTop()) - 1;
         int tlRow = calculateRow(rect.getLeft(), rect.getTop()) - 1;
@@ -827,22 +826,22 @@ public final class HexEngine<G> {
         int brRow = calculateRow(rightx, righty) + 1;
 
         for (int y = tlRow; y <= brRow; y++) {
-
-//          if (y%2!=0){
-//            for (int x = tlColumn; x <= brColumn-1; x++) {
-//              if (this.model.isPositionValid(x, y) && isPositionVisible(x, y, rect, accurately)) {
-//                _drawHex(gfx, x, y);
-//              }
-//            }
-//          }else {
-
-            for (int x = tlColumn; x <= brColumn; x++) {
+           for (int x = tlColumn; x <= brColumn; x++) {
               if (this.model.isPositionValid(x, y) && isPositionVisible(x, y, rect, accurately)) {
-                _drawHex(gfx, x, y);
+
+                if (orientation==HexEngine.ORIENTATION_VERTICAL){
+                  if (!(y%2!=0 && x==(fieldWidth-1))) {
+                    _drawHex(gfx, x, y);
+                  }
+                }else {
+                  if (!(x%2!=0 && y==(fieldHeight-1))){
+//                    Log.e("XY", "(x,y)  " + x + " , " + y);
+                    _drawHex(gfx, x, y);
+                  }
+                }
+
               }
             }
-//          }
-
         }
       }
     }

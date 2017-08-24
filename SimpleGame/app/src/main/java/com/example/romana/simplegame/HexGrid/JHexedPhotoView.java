@@ -28,7 +28,7 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
     /**
      * The Width of the hex cell in pixels.
      */
-    private  int cellWidth;
+    private int cellWidth;
 
     /**
      * The Height of the hex cell in pixels.
@@ -63,17 +63,17 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
     /**
      * The HexGridActivity engine for hexagonal math.
      */
-    private  HexEngine<Canvas> engine;
+    private HexEngine<Canvas> engine;
 
     /**
      * The Paint to draw hexagons.
      */
-    private  Paint theHexPaint;
+    private Paint theHexPaint;
 
     /**
      * The Model if the data source for HexGridActivity engine.
      */
-    private  DefaultIntegerHexModel hexModel;
+    private DefaultIntegerHexModel hexModel;
     /**
      * Array contains the original loaded icons which scaled to cell size
      */
@@ -166,7 +166,7 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
 //        this.iconsOptimizedForHexagons = makeHexagonalIcons(this.icons, this.hexPath);
     }
 
-    private void init(Context ctx, int orientation){
+    private void init(Context ctx, int orientation) {
         try {
             icons = this.isInEditMode() ? new Bitmap[0] : loadIconsFromAsset(ctx, new String[]{"astra1.jpg", "astra2.jpg", "rose.jpg", "cactus.jpg", "white.jpg", "whitered.jpg", "yellow.jpg"});
             System.out.println("Loaded " + icons.length + " icon(s)");
@@ -174,31 +174,30 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
             throw new RuntimeException(ex);
         }
 
-
-        // Create and fill the model by random values for loaded icon number
-        this.hexModel = new DefaultIntegerHexModel(this.fieldWidth, this.fieldHeight, -1);
-        if (!this.isInEditMode()) {
-            final Random rnd = new Random();
-            for (int c = 0; c < this.fieldWidth; c++) {
-                for (int r = 0; r < this.fieldHeight; r++) {
-                    this.hexModel.setValueAt(c, r, rnd.nextInt(icons.length));
-                }
-            }
-        }
-
         // Prepare the Paint styple to draw hexagon borders
         theHexPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         theHexPaint.setStyle(Paint.Style.STROKE);
         theHexPaint.setStrokeWidth(this.hexLineWidth);
+
+        // Create and fill the model by random values for loaded icon number
+        this.hexModel = new DefaultIntegerHexModel(this.fieldWidth, this.fieldHeight, -1);
+//        if (!this.isInEditMode()) {
+//            final Random rnd = new Random();
+//            for (int c = 0; c < this.fieldWidth; c++) {
+//                for (int r = 0; r < this.fieldHeight; r++) {
+//                    this.hexModel.setValueAt(c, r, rnd.nextInt(icons.length));
+//                }
+//            }
+//        }
 
         // Create and init the hexagonal engine
         this.engine = new HexEngine<Canvas>(this.cellWidth, this.cellHeight, orientation);
         this.engine.setModel(this.hexModel);
         this.engine.setRenderer(this);
 
-
         // Make the Path to draw hex
         updateCurrentHexPath();
+
 
         // Prepare the hexagonal icons to be drawn in the Path
 //        this.iconsOptimizedForHexagons = makeHexagonalIcons(this.icons, this.hexPath);
@@ -274,6 +273,7 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
     /**
      * Get info about hexagon from engine and recalculate Path
      */
+
     private void updateCurrentHexPath() {
 
         final Path newPath = new Path();
@@ -297,7 +297,12 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
     protected void onDraw(final Canvas canvas) {
         final Rect visibleRect = new Rect();
         if (this.getGlobalVisibleRect(visibleRect)) {
-            this.engine.drawArea(canvas, new HexRect2D(visibleRect.left + this.screenOffsetX, visibleRect.top + this.screenOffsetY, visibleRect.width(), visibleRect.height()), true);
+//            this.engine.drawArea(canvas, new HexRect2D(visibleRect.left + this.screenOffsetX, visibleRect.top + this.screenOffsetY, visibleRect.width(), visibleRect.height()), true, (this.fieldWidth-1));
+            this.engine.drawArea(canvas,
+                    new HexRect2D(visibleRect.left + this.screenOffsetX,
+                            visibleRect.top + this.screenOffsetY, visibleRect.width(),
+                            visibleRect.height()), true, this.fieldHeight,this.fieldWidth);
+
             drawSelection(canvas);
         }
     }
@@ -333,8 +338,8 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
 //            canvas.drawBitmap(icon, 0f, 0f, theHexPaint);
 //        }
         canvas.drawPath(this.hexPath, theHexPaint);
-        call++;
-        Log.e("Call" , "" + call);
+//        call++;
+//        Log.e("Call" , "" + call);
     }
 
     @Override
@@ -390,20 +395,20 @@ public class JHexedPhotoView extends View implements HexEngineRender<Canvas> {
     }
 
 
-    public void setHexaGrid(Context ctx,int orientation, int width, int row){
-//        this.cellWidth = width;// cell width
-//        this.cellHeight = width;// cell height
-//        this.fieldWidth = row; //row number
-//        this.fieldHeight = row;//column number
-        this.cellWidth = 150;// cell width
-        this.cellHeight = 200;// cell height
-        this.fieldWidth = 5; //row number
-        this.fieldHeight = 4;//column number
+    public void setHexaGrid(Context ctx, int orientation, int width, int row) {
+        this.cellWidth = width;// cell width
+        this.cellHeight = width;// cell height
+        this.fieldWidth = row; //row number
+        this.fieldHeight = row;//column number
+//        this.cellWidth = 150;// cell width
+//        this.cellHeight = 200;// cell height
+//        this.fieldWidth = 5; //row number
+//        this.fieldHeight = 4;//column number
         this.hexEdgeColor = Color.WHITE;
         this.hexSelectedEdgeColor = Color.BLUE;
         this.hexLineWidth = 10.0f;
 
-        init(ctx,orientation);
+        init(ctx, orientation);
 
     }
 }
